@@ -1,7 +1,8 @@
+const { Events } = require('discord.js');
 const { author, version } = require('../config.json');
 
 module.exports = {
-	name: 'ready',
+	name: Events.ClientReady,
 	once: true,
 	execute(client) {
 		console.log('\n',
