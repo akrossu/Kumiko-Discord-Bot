@@ -1,4 +1,5 @@
-<center><img src="https://capsule-render.vercel.app/api?type=waving&color=0:b87f46,100:c4668a&height=200&section=header&text=Kumiko&fontSize=80&fontAlignY=35" />
+<div align="center">
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:b87f46,100:c4668a&height=200&section=header&text=Kumiko&fontSize=80&fontAlignY=35" />
 
 [![Version][version-shield]](repo-url)
 [![Code-Size][code-size-shield]](repo-url)
@@ -6,7 +7,7 @@
 [![License][license-shield]](repo-url)
 ![Discord-js-version][discord-js]
 <br></br>
-</center>
+</div>
 
 
 <div>
