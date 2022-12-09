@@ -1,16 +1,23 @@
-# Kumiko
+<center><img src="https://capsule-render.vercel.app/api?type=waving&color=0:b87f46,100:c4668a&height=200&section=header&text=Kumiko&fontSize=80&fontAlignY=35" />
+
+[![Version][version-shield]](repo-url)
+[![Code-Size][code-size-shield]](repo-url)
+[![Issues][issues-sheild]](repo-url)
+[![License][license-shield]](repo-url)
+![Discord-js-version][discord-js]
+<br></br>
+</center>
+
 
 <div>
-    <img src="https://i.imgur.com/Gpd8H1W.png">
-    <br></br>
     <p>
-    Hello, I am currently rewritting the Kumiko discord bot for better functionality and user experience. Please give a few weeks for it to go live as I am in the very early stages of development, thank you.
+    &emsp;&emsp;Hello, I am currently rewritting the Kumiko discord bot for better functionality and user experience. Please give a few weeks for it to go live as I am in the very early stages of development, thank you.
     <br></br>
-    I am unsure of what this bot is currently aiming to be, but I want a firm foundation to be able to go in whichever direction that the bot is going to develop into.
+    &emsp;&emsp;I am unsure of what this bot is currently aiming to be, but I want a firm foundation to be able to go in whichever direction that the bot is going to develop into.
     </p>
 </div>
 
-## Files
+<div align="center"><h2>Files</h2></div>
 
 > config.json is not listed in the repository so here is the code in the file
 
@@ -18,8 +25,21 @@
 {
     "token": "[your-token-here]",
     "author": "Akross",
-    "version": "0.1",
+    "version": "0.2",
+    "clientId": "[your-client-id]",
+    "guildId": "[your-guild-id]"
 }
 ```
 
-This is my first time learning js, if you have any tips please say so :)
+<div align="center"><h2>Disclaimer</h2></div>
+
+- Since this current build is not ready, I am only deploying to my private server and the github repo is purely for tracking purposes through development until officially releasing to the public with hosting.
+
+- I by no means know what I am doing, so if there are optimizations or any tips to provide, please say so!
+
+[version-shield]: https://img.shields.io/github/v/release/akr0ss/kumiko-discord-bot?include_prereleases
+[repo-url]: https://github.com/akr0ss/kumiko-discord-bot
+[code-size-shield]: https://img.shields.io/github/languages/code-size/akr0ss/kumiko-discord-bot
+[issues-sheild]: https://img.shields.io/github/issues/akr0ss/kumiko-discord-bot
+[license-shield]: https://img.shields.io/github/license/akr0ss/kumiko-discord-bot
+[discord-js]: https://img.shields.io/badge/Discord.js-v14.7.1-%232C7D59
