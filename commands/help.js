@@ -23,7 +23,7 @@ module.exports = {
                     { name: ':person_pouting: Personal', value: 'Your discord and bot information.', inline: true },
                     { name: ':shinto_shrine: Anime', value: 'Lookup anime and discuss them with your friends!', inline: true },
                     { name: '\u200B', value: '\u200B' },
-                    { name: ':wrench: Utility', value: 'Commands that provide statistical information', inline: true },
+                    { name: ':wrench: Utility', value: 'Commands that provide statistical information.', inline: true },
                     { name: ':gear: Settings', value: 'Configuration tools for a custom experience.', inline: true },
                     { name: '\u200B', value: '\u200B' },
                     { name: 'ℹ Slash Commands', value: '*Kumiko makes use of slash commands now!* (`/` *instead of* `!k`)\n*Reminder that commands can be disabled or enabled in your* `Server Settings → Integrations → Kumiko`' }];
@@ -32,46 +32,38 @@ module.exports = {
             switch (interaction.options.getString('category').toLowerCase()) {
                 case 'general':
                     dynamicEmbed.title = ':lotus: General';
-                    dynamicEmbed.description = 'General Commands';
+                    dynamicEmbed.description = 'Some generic bot commands.';
                     dynamicEmbed.fields = [
                         { name: '/help', value: 'Lists all categories and their commands.', inline: true },
-                        { name: '/server', value: 'Displays guild information.' }];
+                        { name: '/server', value: 'Displays guild information.', inline: true }];
                     break;
                 case 'personal':
                     dynamicEmbed.title = ':person_pouting: Personal';
-                    dynamicEmbed.description = 'Personal Commands';
+                    dynamicEmbed.description = 'Your discord and bot information.';
                     dynamicEmbed.fields = [
-                        { name: '/user', value: 'Displays information about your discord acount!' }];
+                        { name: '/user', value: 'Displays information about your discord acount!', inline: true }];
                     break;
                 case 'anime':
                     dynamicEmbed.title = ':shinto_shrine: Anime';
-                    dynamicEmbed.description = 'Anime Commands';
+                    dynamicEmbed.description = 'Lookup anime and discuss them with your friends!';
                     dynamicEmbed.fields = [];
                     break;
                 case 'utility':
                     dynamicEmbed.title = ':wrench: Utility';
-                    dynamicEmbed.description = 'Custom Command Settings';
+                    dynamicEmbed.description = 'Commands that provide statistical information.';
                     dynamicEmbed.fields = [
                         { name: '/info', value: 'Displays Kumiko\'s bot description!', inline: true },
                         { name: '/ping', value: 'Pings for the bot / API latency.', inline: true }];
                     break;
                 case 'settings':
                     dynamicEmbed.title = ':gear: Settings';
-                    dynamicEmbed.description = 'Settings Commands';
+                    dynamicEmbed.description = 'Configuration tools for a custom experience.';
                     dynamicEmbed.fields = [];
                     break;
             }
         }
-        const githubButton = new ActionRowBuilder()
-            .addComponents(
-                new ButtonBuilder()
-                    .setLabel('Visit the GitHub Repo')
-                    .setStyle(ButtonStyle.Link)
-                    .setURL('https://github.com/AKR0SS/Kumiko-Discord-Bot'),
-            );
         await interaction.reply({
             embeds: [dynamicEmbed],
-            components: [githubButton],
         });
     },
 };
