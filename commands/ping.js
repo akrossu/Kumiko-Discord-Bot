@@ -5,13 +5,12 @@ module.exports = {
 		.setName('ping')
 		.setDescription('Replies with Pong!'),
 	async execute(interaction) {
-		await interaction.reply({ content: '🏓 Pinging...', fetchReply: true }).then(
-			(msg) =>
+		await interaction.reply({ content: '🏓 Pinging...', fetchReply: true }).then((msg) =>
 			msg.edit({
 				content: null,
 				embeds: [
 					{
-					title: '🏓  Ping!',
+					title: '🏓  Pong!',
 					color: 0xE38271,
 					fields: [
 						{ name: 'WebSocket Ping', value: `${interaction.client.ws.ping}ms`, inline: true },
