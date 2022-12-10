@@ -27,6 +27,17 @@ module.exports = {
                     { name: ':gear: Settings', value: 'Configuration tools for a custom experience.', inline: true },
                     { name: '\u200B', value: '\u200B' },
                     { name: 'ℹ Slash Commands', value: '*Kumiko makes use of slash commands now!* (`/` *instead of* `!k`)\n*Reminder that commands can be disabled or enabled in your* `Server Settings → Integrations → Kumiko`' }];
+            const githubButton = new ActionRowBuilder()
+            .addComponents(
+                new ButtonBuilder()
+                    .setLabel('Visit the GitHub Repo')
+                    .setStyle(ButtonStyle.Link)
+                    .setURL('https://github.com/AKR0SS/Kumiko-Discord-Bot'),
+            );
+            return interaction.reply({
+                embeds: [dynamicEmbed],
+                components: [githubButton],
+            });
         }
         else {
             switch (interaction.options.getString('category').toLowerCase()) {
