@@ -13,9 +13,15 @@ module.exports = {
 		}
 
 		try {
-			await command.execute(interaction);
+			if (interaction.isAutocomplete()) {
+				console.log('args function');
+				await command.autocomplete(interaction);
+			}
+			else {
+				await command.execute(interaction);
+			}
 		}
-        catch (error) {
+		catch (error) {
 			console.error(`Error executing ${interaction.commandName}`);
 			console.error(error);
 		}
