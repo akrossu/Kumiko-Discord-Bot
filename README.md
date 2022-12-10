@@ -19,10 +19,9 @@
 </div>
 
 <div align="center"><h2>Features</h2>
-Here are just some of the features to come as I work further on the bot.
-<img src="https://i.imgur.com/oVWTKLq.png">
+    Here are just some of the features to come as I work further on the bot.
+    <img src="https://i.imgur.com/oVWTKLq.png">
 </div>
-
 
 <div align="center"><h2>Files</h2></div>
 
