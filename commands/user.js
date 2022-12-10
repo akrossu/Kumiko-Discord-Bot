@@ -14,6 +14,8 @@ module.exports = {
 
 		if (interaction.options.getUser('target') === null) {
 			joinedAt = new Date(interaction.member.user.createdAt);
+			dynamicEmbed.title = 'User information';
+			dynamicEmbed.thumbnail = { url: interaction.member.user.avatarURL() },
 			dynamicEmbed.fields = [
 				{ name: 'User', value: userMention(interaction.member.id), inline: true },
 				{ name: '\u200B', value: '\u200B', inline: true },
@@ -23,6 +25,7 @@ module.exports = {
 		else if (interaction.options.getUser('target').id === '595412974621949972') {
 			joinedAt = new Date(interaction.options.getUser('target').createdAt);
 			dynamicEmbed.title = 'What\'s this, a dedicated page just for the love of my life? yes <3';
+			dynamicEmbed.thumbnail = { url: interaction.options.getUser('target').avatarURL() },
 			dynamicEmbed.fields = [
 				{ name: 'User', value: userMention(interaction.options.getUser('target').id), inline: true },
 				{ name: '\u200B', value: '\u200B', inline: true },
@@ -32,6 +35,8 @@ module.exports = {
 		}
 		else {
 			joinedAt = new Date(interaction.options.getUser('target').createdAt);
+			dynamicEmbed.title = 'User information';
+			dynamicEmbed.thumbnail = { url: interaction.options.getUser('target').avatarURL() },
 			dynamicEmbed.fields = [
 				{ name: 'User', value: userMention(interaction.options.getUser('target').id), inline: true },
 				{ name: '\u200B', value: '\u200B', inline: true },
@@ -44,5 +49,6 @@ module.exports = {
 
 const dynamicEmbed = {
     color: 0xF5B5C8,
-    title: 'User information',
+    title: 'placeholder',
+	thumbnail: 'placeholder',
 };
