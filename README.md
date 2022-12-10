@@ -9,18 +9,18 @@
 <br></br>
 </div>
 
-
 <div>
     <p>
     &emsp;&emsp;Hello, I am currently rewritting the Kumiko discord bot for better functionality and user experience. Please give a few weeks for it to go live as I am in the very early stages of development, thank you.
     <br></br>
-    &emsp;&emsp;I am unsure of what this bot is currently aiming to be, but I want a firm foundation to be able to go in whichever direction that the bot is going to develop into.
+    &emsp;&emsp;What I want to achieve with this bot is going to start small. The first feature will be <i>Anime</i> commands since Kumiko is well, yeah. Further features are unplanned, but I would like to create a lite text base rpg as well, though mighty ambitious since I don't even know how databases work to a functioning degree and could barely get slash command arguments working.
     </p>
 </div>
 
 <div align="center"><h2>Features</h2>
     Here are just some of the features to come as I work further on the bot.
-    <img src="https://i.imgur.com/oVWTKLq.png">
+    <br></br>
+    <img src="https://i.imgur.com/2odML5a.png">
 </div>
 
 <div align="center"><h2>Files</h2></div>
