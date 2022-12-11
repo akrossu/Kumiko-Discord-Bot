@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('discord.js');
 const { userMention } = require('@discordjs/builders');
+const { wife } = require('../config.json');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -11,7 +12,6 @@ module.exports = {
 		),
 	async execute(interaction) {
 		let joinedAt;
-
 		if (interaction.options.getUser('target') === null) {
 			joinedAt = new Date(interaction.member.user.createdAt);
 			dynamicEmbed.title = 'User information';
@@ -22,7 +22,7 @@ module.exports = {
 				{ name: 'Joined Discord', value: '<t:' + Math.round(joinedAt.getTime() / 1000) + ':d>', inline: true },
 			];
 		}
-		else if (interaction.options.getUser('target').id === '595412974621949972') {
+		else if (interaction.options.getUser('target').id === `${wife}`) { // A special command for my darling <3
 			joinedAt = new Date(interaction.options.getUser('target').createdAt);
 			dynamicEmbed.title = 'What\'s this, a dedicated page just for the love of my life? yes <3';
 			dynamicEmbed.thumbnail = { url: interaction.options.getUser('target').avatarURL() },
