@@ -58,7 +58,9 @@ module.exports = {
                 case 'anime':
                     dynamicEmbed.title = ':shinto_shrine: Anime';
                     dynamicEmbed.description = 'Lookup anime and discuss them with your friends!';
-                    dynamicEmbed.fields = [];
+                    dynamicEmbed.fields = [
+                        { name: '/anime search', value: 'Enter an anime name to search for it.' },
+                    ];
                     break;
                 case 'utility':
                     dynamicEmbed.title = ':wrench: Utility';
