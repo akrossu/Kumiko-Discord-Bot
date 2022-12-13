@@ -22,13 +22,18 @@ for (const file of eventFiles) {
 
 // Command handling
 client.commands = new Collection();
-const commandsPath = path.join(__dirname, 'commands');
-const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 
-for (const file of commandFiles) {
-	const filePath = path.join(commandsPath, file);
-	const command = require(filePath);
-	client.commands.set(command.data.name, command);
+const commandFolder = fs.readdirSync('./commands');
+
+for (const folder of commandFolder) {
+	const commandsPath = path.join(__dirname, `./commands/${folder}`);
+	const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
+
+	for (const file of commandFiles) {
+		const filePath = path.join(commandsPath, file);
+		const command = require(filePath);
+		client.commands.set(command.data.name, command);
+	}
 }
 
 client.login(token);
