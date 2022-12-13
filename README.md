@@ -11,7 +11,7 @@
 
 <div>
     <p>
-    &emsp;&emsp;Hello, I am currently rewritting the Kumiko discord bot for better functionality and user experience. Please give a few weeks for it to go live as I am in the very early stages of development, thank you.
+    &emsp;&emsp;Kumiko was an old discord bot started in 2018 and with the introduction of slash commands, felt like now is the time more than ever if I was going to rewrite the bot from scratch. Please give a few weeks for it to go live as I am in the very early stages of development, thank you.
     <br></br>
     &emsp;&emsp;What I want to achieve with this bot is going to start small. The first feature will be <i>Anime</i> commands since Kumiko is well, yeah. Further features are unplanned, but I would like to create a lite text base rpg as well, though mighty ambitious since I don't even know how databases work to a functioning degree and could barely get slash command arguments working.
     </p>
