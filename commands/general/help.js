@@ -45,14 +45,14 @@ module.exports = {
                     dynamicEmbed.title = ':lotus: General';
                     dynamicEmbed.description = 'Some generic bot commands.';
                     dynamicEmbed.fields = [
-                        { name: '/avatar', value: 'Displays your or a selected user\'s avatar.', inline: true },
                         { name: '/help', value: 'Lists all categories and their commands.', inline: true },
                         { name: '/server', value: 'Displays guild information.', inline: true }];
-                    break;
+                        break;
                 case 'personal':
                     dynamicEmbed.title = ':person_pouting: Personal';
                     dynamicEmbed.description = 'Your discord and bot information.';
                     dynamicEmbed.fields = [
+                        { name: '/avatar', value: 'Displays your or a selected user\'s avatar.', inline: true },
                         { name: '/user', value: 'Displays information about your discord acount!', inline: true }];
                     break;
                 case 'anime':
