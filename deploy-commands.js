@@ -4,12 +4,17 @@ const fs = require('node:fs');
 
 const commands = [];
 // Grab all the command files from the commands directory you created earlier
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+const commandFolder = fs.readdirSync('./commands');
 
 // Grab the SlashCommandBuilder#toJSON() output of each command's data for deployment
-for (const file of commandFiles) {
-	const command = require(`./commands/${file}`);
-	commands.push(command.data.toJSON());
+for (const folder of commandFolder) {
+	const commandFiles = fs.readdirSync(`./commands/${folder}`).filter((file) => file.endsWith('.js'));
+
+	for (const file of commandFiles) {
+		const command = require(`./commands/${folder}/${file}`);
+		console.info(`%s %s ./commands/${folder}/${file}`, '\x1b[42m DEPLOY \x1b[0m', '\x1b[34m[FILE_PATH]\x1b[0m');
+		commands.push(command.data.toJSON());
+	}
 }
 
 // Construct and prepare an instance of the REST module
@@ -29,7 +34,6 @@ const rest = new REST({ version: '10' }).setToken(token);
 		console.log(`Successfully reloaded ${data.length} application (/) commands.`);
 	}
     catch (error) {
-		// And of course, make sure you catch and log any errors!
 		console.error(error);
 	}
 })();
