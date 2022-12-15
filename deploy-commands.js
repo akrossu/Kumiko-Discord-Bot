@@ -6,6 +6,7 @@ const commands = [];
 // Grab all the command files from the commands directory you created earlier
 const commandFolder = fs.readdirSync('./commands');
 
+console.log('\n%s Reading command files at %s.', '\x1b[46m STARTED \x1b[0m', commandFolder);
 // Grab the SlashCommandBuilder#toJSON() output of each command's data for deployment
 for (const folder of commandFolder) {
 	const commandFiles = fs.readdirSync(`./commands/${folder}`).filter((file) => file.endsWith('.js'));
@@ -23,7 +24,7 @@ const rest = new REST({ version: '10' }).setToken(token);
 // and deploy your commands!
 (async () => {
 	try {
-		console.log(`Started refreshing ${commands.length} application (/) commands.`);
+		console.log('\n%s Refreshing %i application (/) commands.', '\x1b[46m STARTED \x1b[0m', commands.length);
 
 		// The put method is used to fully refresh all commands in the guild with the current set
 		const data = await rest.put(
@@ -31,7 +32,7 @@ const rest = new REST({ version: '10' }).setToken(token);
 			{ body: commands },
 		);
 
-		console.log(`Successfully reloaded ${data.length} application (/) commands.`);
+		console.log('%s Reloaded %i application (/) commands.\n', '\x1b[42m DEPLOY \x1b[0m', data.length);
 	}
     catch (error) {
 		console.error(error);

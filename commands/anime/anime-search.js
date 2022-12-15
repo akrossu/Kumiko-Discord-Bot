@@ -20,8 +20,7 @@ module.exports = {
 
             if (data.synopsis.length > 1021) { // mal rewrite text is 28 characters long
                 synopsis = data.synopsis.substring(0, 1024 - 29);
-                synopsis = synopsis.concat('...\n\n[Written by Mal Rewrite]'); //\n\n[Written by Mal Rewrite]
-                console.log(synopsis.charAt(1001));
+                synopsis = synopsis.concat('...\n\n[Written by Mal Rewrite]');
             }
             else {
                 synopsis = data.synopsis;
