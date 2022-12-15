@@ -14,10 +14,18 @@ module.exports = {
     ),
     async execute(interaction) {
         if (interaction.options.getSubcommand() == 'search') {
-            if (interaction.options.getString('anime') == null) return interaction.reply({ content: 'An argument was not entered.', ephemeral: true });
-
             const info = malScraper.getInfoFromName(interaction.options.getString('anime'), true);
             const data = await info;
+            let synopsis;
+
+            if (data.synopsis.length > 1021) { // mal rewrite text is 28 characters long
+                synopsis = data.synopsis.substring(0, 1024 - 29);
+                synopsis = synopsis.concat('...\n\n[Written by Mal Rewrite]'); //\n\n[Written by Mal Rewrite]
+                console.log(synopsis.charAt(1001));
+            }
+            else {
+                synopsis = data.synopsis;
+            }
 
             const embed = new EmbedBuilder()
                 .setColor(0xF5B5C8)
@@ -28,7 +36,7 @@ module.exports = {
                 .addFields(
                     { name: 'status', value: `${data.status}`, inline: true },
                     { name: 'episodes', value: `${data.episodes} episodes`, inline: true },
-                    { name: 'synopsis', value: data.synopsis },
+                    { name: 'synopsis', value: synopsis },
                 );
             await interaction.reply({ embeds: [embed] });
         }
