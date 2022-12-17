@@ -60,6 +60,7 @@ module.exports = {
                     dynamicEmbed.description = 'Lookup anime and discuss them with your friends!';
                     dynamicEmbed.fields = [
                         { name: '/anime search', value: 'Enter an anime name to search for it.' },
+                        { name: '/anime season', value: 'Displays all anime within a certain season and year of a selected type.' },
                     ];
                     break;
                 case 'utility':
