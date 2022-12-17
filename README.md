@@ -11,7 +11,7 @@
 
 &emsp;&emsp;Kumiko was an old discord bot started in 2018 and with the introduction of slash commands, felt like now is the time more than ever if I was going to rewrite the bot from scratch. Please give a few weeks for it to go live as I am in the very early stages of development, thank you.
 
-&emsp;&emsp;What I want to achieve with this bot is going to start small. The first feature will be `Anime` commands since Kumiko is well, yeah. Further features are unplanned.
+&emsp;&emsp;I would like to keep this bot as barebone and simple for not only optimizations, but readability. I am hoping that this could be a learning experience not only for me, but for other developers wanting to learn Discord js and javascript as a language.
 
 <div align="center"><h2>Features</h2>
     Here are just some of the features to come as I work further on the bot.
