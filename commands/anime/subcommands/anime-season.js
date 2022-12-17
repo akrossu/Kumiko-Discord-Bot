@@ -13,9 +13,19 @@ module.exports = {
         const season = interaction.options.get('season').value;
         const year = interaction.options.get('year').value;
 
-        const info = malScraper.getSeason(year, season, type);
-        const data = await info;
-        const typeArray = malScraper.getSeason(year, season);
+        let info;
+        let data;
+        let typeArray;
+
+        try {
+            info = malScraper.getSeason(year, season, type);
+            data = await info;
+            typeArray = malScraper.getSeason(year, season);
+        }
+        catch (error) {
+            console.log('%s %s An error occured while awaiting a reply.', '\x1b[41m ERROR \x1b[0m', '\x1b[34m [anime-season.js] \x1b[0m');
+            return interaction.editReply('An error occured while processing your request.');
+        }
 
         if (year < 1917 || year > nextYear) return interaction.reply({ content: `Year must be between 1917 and ${nextYear}.` });
 
@@ -40,6 +50,8 @@ module.exports = {
             case 'Specials':
                 typeLength = (await typeArray).Specials.length;
                 break;
+            default:
+                return interaction.reply('A valid type was not identified.');
         }
 
         if (typeLength == 0) return interaction.reply({ content: `Can not find anime for ${season}, ${year}` });
