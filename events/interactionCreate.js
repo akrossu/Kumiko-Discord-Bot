@@ -8,13 +8,12 @@ module.exports = {
 		const command = interaction.client.commands.get(interaction.commandName);
 
 		if (!command) {
-			console.error(`%s No command matching ${interaction.commandName} was found.`, '\x1b[41m ERROR \x1b[0m');
+			console.error(`%s No command matching '${interaction.commandName}' was found.`, '\x1b[41m ERROR \x1b[0m');
 			return;
 		}
 
 		try {
 			if (interaction.isAutocomplete()) {
-				console.log('args function');
 				await command.autocomplete(interaction);
 			}
 			else {
@@ -22,7 +21,7 @@ module.exports = {
 			}
 		}
 		catch (error) {
-			console.error(`Error executing ${interaction.commandName}`);
+			console.error(`%s Error executing ${interaction.commandName}.`, '\x1b[41m ERROR \x1b[0m');
 			console.error(error);
 		}
 	},
