@@ -1,7 +1,8 @@
-const { animeSearch } = require('./subcommands/anime-search.js');
+const { animeSearch } = require('./subcommands/anime-search');
 const { animeSeason } = require('./subcommands/anime-season');
+const { animeProfile } = require('./subcommands/anime-profile');
 
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder, IntegrationApplication } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -42,9 +43,27 @@ module.exports = {
                 .addIntegerOption(option =>
                     option.setName('year')
                         .setDescription('A year from recent.')
+                        .setRequired(true)))
+        .addSubcommand(subcommand =>
+            subcommand.setName('profile')
+                .setDescription('Get the watch list for a user')
+                .addStringOption(option =>
+                    option.setName('username')
+                        .setDescription('A MAL username.')
                         .setRequired(true))),
     async execute(interaction) {
-        if (interaction.options.getSubcommand() == 'season') return animeSeason(interaction);
-        if (interaction.options.getSubcommand() == 'search') return animeSearch(interaction);
+        switch (interaction.options.getSubcommand()) {
+            case 'season':
+                animeSeason(interaction);
+                break;
+            case 'search':
+                animeSearch(interaction);
+                break;
+            case 'profile':
+                animeProfile(interaction);
+                break;
+            default:
+                console.log(`${interaction.options.getSubcommand()} was not found.`);
+        }
     },
 };
