@@ -3,16 +3,14 @@ const malScraper = require('mal-scraper');
 
 module.exports = {
     async animeSearch(interaction) {
-        let info;
         let data;
         let synopsis;
 
         try {
-            info = malScraper.getInfoFromName(interaction.options.getString('anime'), true);
-            data = await info;
+            data = await malScraper.getInfoFromName(interaction.options.getString('anime'), true);
         }
         catch (error) {
-            console.log('%s %s An error occured while awaiting a reply.', '\x1b[41m ERROR \x1b[0m', '\x1b[34m [anime-search.js] \x1b[0m');
+            console.log(`%s %s An error occured while awaiting a reply.\n${error}`, '\x1b[41m ERROR \x1b[0m', '\x1b[34m [anime-search.js] \x1b[0m');
             return interaction.reply('An error occured while processing your request.');
         }
 
@@ -36,6 +34,7 @@ module.exports = {
                 { name: 'episodes', value: `${data.episodes} episodes`, inline: true },
                 { name: 'synopsis', value: synopsis },
             );
+
         await interaction.reply({ embeds: [embed] });
     },
 };
