@@ -1,39 +1,26 @@
 const fs = require('node:fs');
-const path = require('node:path');
-const { Client, Collection, GatewayIntentBits } = require('discord.js');
+const { Client, GatewayIntentBits } = require('discord.js');
 const { token } = require('./config.json');
 
+// Establishes the Client
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
-// Event handling
-const eventsPath = path.join(__dirname, 'events');
-const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
+// Reads each of the Javascript files from Functions folder
+const functionFolder = fs.readdirSync('./functions');
 
-for (const file of eventFiles) {
-	const filePath = path.join(eventsPath, file);
-	const event = require(filePath);
-	if (event.once) {
-		client.once(event.name, (...args) => event.execute(...args));
-	}
-	else {
-		client.on(event.name, (...args) => event.execute(...args));
+for (const folder of functionFolder) {
+	if (folder === 'deploy-commands.js') continue;
+	const functionFiles = fs.readdirSync(`./functions/${folder}`).filter(file => file.endsWith('.js'));
+
+	// Reads and passes client to required Handlers
+	for (const file of functionFiles) {
+		require(`./functions/${folder}/${file}`)(client);
 	}
 }
 
-// Command handling
-client.commands = new Collection();
-
-const commandFolder = fs.readdirSync('./commands');
-
-for (const folder of commandFolder) {
-	const commandsPath = path.join(__dirname, `./commands/${folder}`);
-	const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
-
-	for (const file of commandFiles) {
-		const filePath = path.join(commandsPath, file);
-		const command = require(filePath);
-		client.commands.set(command.data.name, command);
-	}
-}
+// Creates and handles execution of javascript files from the Events folder
+client.eventHandler();
+// Creates and sets commands read from the Commands/command folders
+client.commandHandler();
 
 client.login(token);
