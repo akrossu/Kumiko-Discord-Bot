@@ -1,5 +1,11 @@
 const fs = require('fs');
 
+/**
+ * @param {*} client
+ *
+ * Responsible for the creation of events dynamically
+ * read from the Events folder
+ */
 module.exports = (client) => {
     client.eventHandler = async () => {
         const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
