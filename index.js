@@ -9,9 +9,12 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 const functionFolder = fs.readdirSync('./functions');
 
 for (const folder of functionFolder) {
+	if (folder === 'deploy-commands.js') continue;
 	const functionFiles = fs.readdirSync(`./functions/${folder}`).filter(file => file.endsWith('.js'));
+
+	// Reads and passes client to required Handlers
 	for (const file of functionFiles) {
-		require(`./functions/${folder}/${file}`)(client); // Reads and passes client to required Handlers
+		require(`./functions/${folder}/${file}`)(client);
 	}
 }
 
