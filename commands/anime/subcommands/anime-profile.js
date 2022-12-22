@@ -16,6 +16,7 @@ module.exports = {
 
         /* DATA LOGIC */
         try {
+            // gets an array of 300 values
             data = await malScraper.getWatchListFromUser(username, paginate, type);
         }
         catch (error) {
@@ -32,56 +33,38 @@ module.exports = {
             .setURL(`https://myanimelist.net/profile/${username}`)
             .setFooter({ text: `page ${currentPage} of ${totalPages}` });
 
-        for (let i = paginate; i < paginate + 8; i++) {
-            embed.addFields({ name: `${data[i].animeTitle}`, value: `[MyAnimeList Page](${getURL(data[i])})\nAired: ${data[i].animeStartDateString}\n${data[i].animeNumEpisodes} episode(s)`, inline: true });
-            embed.addFields({ name: '\u200B\u200B', value: '\u200B\u200B', inline: true });
-            embed.addFields({ name: `User Rating: ${data[i].score} ★`, value: `Status: ${getStatus(data[i])}`, inline: true });
-        }
+        // populates initial page
+        updatePage(embed, data, paginate);
 
         /* BUTTON LOGIC */
         const filter = i => {
-            if (i.customId === 'previous' && i.user.id === interaction.user.id) {
+            if (i.customId === 'anime-profile-prev' && i.user.id === interaction.user.id) {
                 currentPage--;
                 paginate -= 8;
                 updatePage(embed, data, paginate);
                 embed.setFooter({ text: `page ${currentPage} of ${totalPages}` });
-                return i.customId === 'previous';
+                return i.customId === 'anime-profile-prev';
             }
-            if (i.customId === 'next' && i.user.id === interaction.user.id) {
+            else if (i.customId === 'anime-profile-next' && i.user.id === interaction.user.id) {
                 currentPage++;
                 paginate += 8;
                 updatePage(embed, data, paginate);
                 embed.setFooter({ text: `page ${currentPage} of ${totalPages}` });
-                return i.customId === 'next';
+                return i.customId === 'anime-profile-next';
             }
         };
-
-        const collector = interaction.channel.createMessageComponentCollector({ filter, time: 1800000 });
 
         /* REPLY FORMATTING */
         const row = buildButton();
 
-
-        collector.on('collect', async i => {
-            await i.update({ embeds: [embed], components: [row] });
-        });
+        // const collector = interaction.channel.createMessageComponentCollector({ filter, time: 1800000 });
+        // collector.on('collect', async i => {
+        //     await i.update({ embeds: [embed], components: [row] });
+        // });
 
         await interaction.editReply({ embeds: [embed], components: [row] });
     },
 };
-
-function updatePage(embed, data, paginate) {
-    const tempEmbed = new EmbedBuilder();
-    for (let i = paginate; i < paginate + 8; i++) {
-        tempEmbed.addFields({ name: `${data[i].animeTitle}`, value: `[MyAnimeList Page](${getURL(data[i])})\nAired: ${data[i].animeStartDateString}\n${data[i].animeNumEpisodes} episode(s)`, inline: true });
-        tempEmbed.addFields({ name: '\u200B\u200B', value: '\u200B\u200B', inline: true });
-        tempEmbed.addFields({ name: `User Rating: ${data[i].score} ★`, value: `Status: ${getStatus(data[i])}`, inline: true });
-    }
-    embed.setFields();
-    for (let i = 0; i < 24; i++) { // 24 Fields per embed page
-        embed.addFields({ name: tempEmbed.data.fields[i].name, value: tempEmbed.data.fields[i].value, inline: tempEmbed.data.fields[i].inline });
-    }
-}
 
 function getURL(nData) {
     const id = nData.animeId;
@@ -108,14 +91,24 @@ function buildButton() {
     return new ActionRowBuilder()
         .addComponents(
             new ButtonBuilder()
-                .setCustomId('previous')
+                .setCustomId('anime-profile-prev')
                 .setLabel('<')
                 .setStyle(ButtonStyle.Secondary),
         )
         .addComponents(
             new ButtonBuilder()
-                .setCustomId('next')
+                .setCustomId('anime-profile-next')
                 .setLabel('>')
                 .setStyle(ButtonStyle.Secondary),
         );
+}
+
+function updatePage(embed, data, paginate) {
+    // Empties all embed fields for new ones to be added
+    embed.setFields();
+    for (let i = paginate; i < paginate + 8; i++) {
+        embed.addFields({ name: `${data[i].animeTitle}`, value: `[MyAnimeList Page](${getURL(data[i])})\nAired: ${data[i].animeStartDateString}\n${data[i].animeNumEpisodes} episode(s)`, inline: true });
+        embed.addFields({ name: '\u200B\u200B', value: '\u200B\u200B', inline: true });
+        embed.addFields({ name: `User Rating: ${data[i].score} ★`, value: `Status: ${getStatus(data[i])}`, inline: true });
+    }
 }
