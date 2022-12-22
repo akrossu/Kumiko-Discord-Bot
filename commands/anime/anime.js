@@ -2,12 +2,13 @@ const { animeSearch } = require('./subcommands/anime-search');
 const { animeSeason } = require('./subcommands/anime-season');
 const { animeProfile } = require('./subcommands/anime-profile');
 
-const { SlashCommandBuilder, IntegrationApplication } = require('discord.js');
+const { SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('anime')
         .setDescription('anime')
+        // COMMAND: /anime search
         .addSubcommand(subcommand =>
             subcommand.setName('search')
                 .setDescription('Search the mal database for a related anime')
@@ -15,6 +16,7 @@ module.exports = {
                     option.setName('anime')
                         .setDescription('Anime title')
                         .setRequired(true)))
+        // COMMAND: /anime season
         .addSubcommand(subcommand =>
             subcommand.setName('season')
                 .setDescription('List all of the airing anime in a particular season / year')
@@ -44,6 +46,7 @@ module.exports = {
                     option.setName('year')
                         .setDescription('A year from recent.')
                         .setRequired(true)))
+        // COMMAND: /anime profile
         .addSubcommand(subcommand =>
             subcommand.setName('profile')
                 .setDescription('Get the watch list for a user')
