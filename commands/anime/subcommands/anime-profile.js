@@ -27,7 +27,7 @@ module.exports = {
         totalPages = Math.floor(data.length / 8);
 
         const embed = new EmbedBuilder()
-            .setColor(0xF5B5C8)
+            .setColor(0xD68881)
             .setTitle(`${username}'s profile`)
             .setDescription('Displays all user\'s anime alphabetically from `watching > completed > on-hold > dropped > plan-to-watch`')
             .setURL(`https://myanimelist.net/profile/${username}`)
