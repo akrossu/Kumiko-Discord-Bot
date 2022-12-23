@@ -10,7 +10,7 @@ module.exports = {
         ),
     async execute(interaction) {
         const user = interaction.options.getUser('target');
-		if (user) {
+	if (user) {
             dynamicEmbed.title = user.username + '\'s avatar';
             dynamicEmbed.image = { url: user.displayAvatarURL({ dynamic: true, size: 2048 }) };
             return interaction.reply({ embeds: [dynamicEmbed] });
