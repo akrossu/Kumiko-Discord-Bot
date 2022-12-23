@@ -10,17 +10,12 @@ console.log('\n%s %s Reading command files at %s.', '\x1b[46m STARTED \x1b[0m', 
 
 // Grab the SlashCommandBuilder#toJSON() output of each command's data for deployment
 for (const folder of commandFolder) {
-	try {
-		const commandFiles = fs.readdirSync(`./commands/${folder}`).filter((file) => file.endsWith('.js'));
+	const commandFiles = fs.readdirSync(`./commands/${folder}`).filter((file) => file.endsWith('.js'));
 
-		for (const file of commandFiles) {
-			const command = require(`../commands/${folder}/${file}`);
-			console.info(`%s %s /commands/${folder}/${file}`, '\x1b[42m DEPLOY \x1b[0m', '\x1b[34m[FILE_PATH]\x1b[0m');
-			commands.push(command.data.toJSON());
-		}
-	}
-	catch (error) {
-		console.log(`%s ${error}.`, '\x1b[41m ERROR \x1b[0m');
+	for (const file of commandFiles) {
+		const command = require(`../commands/${folder}/${file}`);
+		console.info(`%s %s /commands/${folder}/${file}`, '\x1b[42m DEPLOY \x1b[0m', '\x1b[34m[FILE_PATH]\x1b[0m');
+		commands.push(command.data.toJSON());
 	}
 }
 
