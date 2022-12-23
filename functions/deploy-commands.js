@@ -24,19 +24,14 @@ const rest = new REST({ version: '10' }).setToken(token);
 
 // and deploy your commands!
 (async () => {
-	try {
-		console.log('\n%s %s Refreshing %i application (/) commands.', '\x1b[46m STARTED \x1b[0m', '\x1b[34m[DEPLOY-COMMANDS]\x1b[0m', commands.length);
+	console.log('\n%s %s Refreshing %i application (/) commands.', '\x1b[46m STARTED \x1b[0m', '\x1b[34m[DEPLOY-COMMANDS]\x1b[0m', commands.length);
 
-		// The put method is used to fully refresh all commands in the guild with the current set
-		const data = await rest.put(
-			// Routes.applicationCommands(clientId),
-			// App Guild Command is for test deployment
-			Routes.applicationGuildCommands(clientId, guildId),
-			{ body: commands },
-		);
-		console.log('%s %s Reloaded %i application (/) commands.\n', '\x1b[42m DEPLOY \x1b[0m', '\x1b[34m[DEPLOY-COMMANDS]\x1b[0m', data.length);
-	}
-    catch (error) {
-		console.error(`%s ${error}.`, '\x1b[41m ERROR \x1b[0m');
-	}
+	// The put method is used to fully refresh all commands in the guild with the current set
+	const data = await rest.put(
+		// Routes.applicationCommands(clientId),
+		// App Guild Command is for test deployment
+		Routes.applicationGuildCommands(clientId, guildId),
+		{ body: commands },
+	);
+	console.log('%s %s Reloaded %i application (/) commands.\n', '\x1b[42m DEPLOY \x1b[0m', '\x1b[34m[DEPLOY-COMMANDS]\x1b[0m', data.length);
 })();
