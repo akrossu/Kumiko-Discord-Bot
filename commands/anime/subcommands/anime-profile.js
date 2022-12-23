@@ -4,7 +4,7 @@ const malScraper = require('mal-scraper');
 
 module.exports = {
     async animeProfile(interaction) {
-        await interaction.deferReply();
+        const message = await interaction.deferReply();
 
         const username = interaction.options.getString('username');
         let paginate = 0; // index of data entry point
@@ -47,7 +47,7 @@ module.exports = {
             .setStyle(ButtonStyle.Secondary);
 
         /* BUTTON LOGIC */
-        const collector = interaction.channel.createMessageComponentCollector({ componentType: ComponentType.Button, time: 1800000 });
+        const collector = message.createMessageComponentCollector({ componentType: ComponentType.Button, time: 1800000 });
         collector.on('collect', async i => {
             if (i.customId === 'anime-profile-prev') {
                 currentPage--;
@@ -61,6 +61,7 @@ module.exports = {
                 updatePage(embed, data, paginate);
                 embed.setFooter({ text: `page ${currentPage} of ${totalPages}` });
             }
+            await i.update({ embeds: [embed], components: [row] });
         });
 
         /* REPLY FORMATTING */
