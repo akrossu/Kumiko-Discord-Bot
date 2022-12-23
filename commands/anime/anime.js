@@ -1,5 +1,6 @@
-const { animeSearch } = require('./subcommands/anime-search.js');
+const { animeSearch } = require('./subcommands/anime-search');
 const { animeSeason } = require('./subcommands/anime-season');
+const { animeProfile } = require('./subcommands/anime-profile');
 
 const { SlashCommandBuilder } = require('discord.js');
 
@@ -7,6 +8,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('anime')
         .setDescription('anime')
+        // COMMAND: /anime search
         .addSubcommand(subcommand =>
             subcommand.setName('search')
                 .setDescription('Search the mal database for a related anime')
@@ -14,6 +16,7 @@ module.exports = {
                     option.setName('anime')
                         .setDescription('Anime title')
                         .setRequired(true)))
+        // COMMAND: /anime season
         .addSubcommand(subcommand =>
             subcommand.setName('season')
                 .setDescription('List all of the airing anime in a particular season / year')
@@ -42,9 +45,28 @@ module.exports = {
                 .addIntegerOption(option =>
                     option.setName('year')
                         .setDescription('A year from recent.')
+                        .setRequired(true)))
+        // COMMAND: /anime profile
+        .addSubcommand(subcommand =>
+            subcommand.setName('profile')
+                .setDescription('Get the watch list for a user')
+                .addStringOption(option =>
+                    option.setName('username')
+                        .setDescription('A MAL username.')
                         .setRequired(true))),
     async execute(interaction) {
-        if (interaction.options.getSubcommand() == 'season') return animeSeason(interaction);
-        if (interaction.options.getSubcommand() == 'search') return animeSearch(interaction);
+        switch (interaction.options.getSubcommand()) {
+            case 'season':
+                animeSeason(interaction);
+                break;
+            case 'search':
+                animeSearch(interaction);
+                break;
+            case 'profile':
+                animeProfile(interaction);
+                break;
+            default:
+                console.log(`${interaction.options.getSubcommand()} was not found.`);
+        }
     },
 };

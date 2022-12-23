@@ -13,13 +13,11 @@ module.exports = {
         const season = interaction.options.get('season').value;
         const year = interaction.options.get('year').value;
 
-        let info;
         let data;
         let typeArray;
 
         try {
-            info = malScraper.getSeason(year, season, type);
-            data = await info;
+            data = await malScraper.getSeason(year, season, type);
             typeArray = malScraper.getSeason(year, season);
         }
         catch (error) {
