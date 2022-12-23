@@ -1,6 +1,8 @@
 module.exports = {
-    data: { name: 'anime-profile-next' },
+    data: { customId: 'anime-profile-next' },
     async execute(interaction) {
-        await interaction.reply({ content: 'next was clicked' });
+        console.log(`${interaction.customId} was pressed`);
+        await interaction.update({ content: 'next was clicked' });
+        // await interaction.update({ embeds: [embed], components: [row] });
     },
 };

@@ -1,6 +1,8 @@
 module.exports = {
-    data: { name: 'anime-profile-prev' },
+    data: { customId: 'anime-profile-prev' },
     async execute(interaction) {
-        await interaction.reply({ content: 'previous was clicked' });
+        console.log(`${interaction.customId} was pressed`);
+        await interaction.update({ content: 'prev was clicked' });
+        // await interaction.update({ embeds: [embed], components: [row] });
     },
 };
