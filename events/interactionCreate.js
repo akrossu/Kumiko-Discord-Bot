@@ -24,17 +24,5 @@ module.exports = {
 				console.error(error);
 			}
 		}
-		else if (interaction.isButton()) {
-			const button = interaction.client.buttons.get(interaction.customId);
-
-			if (!button) return console.error('No button code was found.');
-
-			try {
-				await button.execute(interaction);
-			}
-			catch (error) {
-				console.error('An error was thrown while executing a button interaction');
-			}
-		}
 	},
 };

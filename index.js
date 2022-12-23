@@ -22,7 +22,5 @@ for (const folder of functionFolder) {
 client.eventHandler();
 // Creates and sets commands read from the Commands/command folders
 client.commandHandler();
-// Creates and sets components read from the components folders
-client.componentHandler();
 
 client.login(token);
