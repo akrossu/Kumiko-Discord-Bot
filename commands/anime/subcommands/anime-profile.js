@@ -1,10 +1,10 @@
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder } = require('@discordjs/builders');
-const { ButtonStyle } = require('discord.js');
+const { ButtonStyle, ComponentType } = require('discord.js');
 const malScraper = require('mal-scraper');
 
 module.exports = {
     async animeProfile(interaction) {
-        await interaction.deferReply('Loading...');
+        await interaction.deferReply();
 
         const username = interaction.options.getString('username');
         let paginate = 0; // index of data entry point
@@ -36,31 +36,35 @@ module.exports = {
         // populates initial page
         updatePage(embed, data, paginate);
 
+        const previousBtn = new ButtonBuilder()
+            .setCustomId('anime-profile-prev')
+            .setLabel('<')
+            .setStyle(ButtonStyle.Secondary);
+
+        const nextBtn = new ButtonBuilder()
+            .setCustomId('anime-profile-next')
+            .setLabel('>')
+            .setStyle(ButtonStyle.Secondary);
+
         /* BUTTON LOGIC */
-        const filter = i => {
-            if (i.customId === 'anime-profile-prev' && i.user.id === interaction.user.id) {
+        const collector = interaction.channel.createMessageComponentCollector({ componentType: ComponentType.Button, time: 1800000 });
+        collector.on('collect', async i => {
+            if (i.customId === 'anime-profile-prev') {
                 currentPage--;
                 paginate -= 8;
                 updatePage(embed, data, paginate);
                 embed.setFooter({ text: `page ${currentPage} of ${totalPages}` });
-                return i.customId === 'anime-profile-prev';
             }
-            else if (i.customId === 'anime-profile-next' && i.user.id === interaction.user.id) {
+            else if (i.customId === 'anime-profile-next') {
                 currentPage++;
                 paginate += 8;
                 updatePage(embed, data, paginate);
                 embed.setFooter({ text: `page ${currentPage} of ${totalPages}` });
-                return i.customId === 'anime-profile-next';
             }
-        };
+        });
 
         /* REPLY FORMATTING */
-        const row = buildButton();
-
-        // const collector = interaction.channel.createMessageComponentCollector({ filter, time: 1800000 });
-        // collector.on('collect', async i => {
-        //     await i.update({ embeds: [embed], components: [row] });
-        // });
+        const row = new ActionRowBuilder().addComponents(previousBtn, nextBtn);
 
         await interaction.editReply({ embeds: [embed], components: [row] });
     },
@@ -85,22 +89,6 @@ function getStatus(nData) {
         case 6: // idk where status 5 is /shrug
             return 'Plan-to-watch';
     }
-}
-
-function buildButton() {
-    return new ActionRowBuilder()
-        .addComponents(
-            new ButtonBuilder()
-                .setCustomId('anime-profile-prev')
-                .setLabel('<')
-                .setStyle(ButtonStyle.Secondary),
-        )
-        .addComponents(
-            new ButtonBuilder()
-                .setCustomId('anime-profile-next')
-                .setLabel('>')
-                .setStyle(ButtonStyle.Secondary),
-        );
 }
 
 function updatePage(embed, data, paginate) {
