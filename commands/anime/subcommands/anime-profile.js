@@ -21,7 +21,7 @@ module.exports = {
         }
         catch (error) {
             console.log(`%s %s An error occured while awaiting a reply.\n${error}`, '\x1b[41m ERROR \x1b[0m', '\x1b[34m [anime-search.js] \x1b[0m');
-            return interaction.reply('An error occured while processing your request.');
+            return interaction.editReply({ content: 'An error occured while processing your request.' });
         }
 
         totalPages = Math.floor(data.length / 8);
@@ -37,34 +37,39 @@ module.exports = {
         updatePage(embed, data, paginate);
 
         const previousBtn = new ButtonBuilder()
-            .setCustomId('anime-profile-prev')
+            .setCustomId('prev')
             .setLabel('<')
-            .setStyle(ButtonStyle.Secondary);
+            .setStyle(ButtonStyle.Secondary)
+            .setDisabled(true);
 
         const nextBtn = new ButtonBuilder()
-            .setCustomId('anime-profile-next')
+            .setCustomId('next')
             .setLabel('>')
             .setStyle(ButtonStyle.Secondary);
 
         /* BUTTON LOGIC */
         const collector = message.createMessageComponentCollector({ componentType: ComponentType.Button, time: 1800000 });
         collector.on('collect', async i => {
-            if (i.customId === 'anime-profile-prev') {
+            if (i.customId === 'prev' && currentPage > 1) {
                 currentPage--;
                 paginate -= 8;
-                updatePage(embed, data, paginate);
-                embed.setFooter({ text: `page ${currentPage} of ${totalPages}` });
+                nextBtn.setDisabled(false);
             }
-            else if (i.customId === 'anime-profile-next') {
+            else if (i.customId === 'next' && currentPage < totalPages) {
                 currentPage++;
                 paginate += 8;
-                updatePage(embed, data, paginate);
-                embed.setFooter({ text: `page ${currentPage} of ${totalPages}` });
+                previousBtn.setDisabled(false);
             }
+
+            if (currentPage === 1) { previousBtn.setDisabled(true); }
+            if (currentPage === totalPages) { nextBtn.setDisabled(true); }
+
+            updatePage(embed, data, paginate);
+            embed.setFooter({ text: `page ${currentPage} of ${totalPages}` });
+
             await i.update({ embeds: [embed], components: [row] });
         });
 
-        /* REPLY FORMATTING */
         const row = new ActionRowBuilder().addComponents(previousBtn, nextBtn);
 
         await interaction.editReply({ embeds: [embed], components: [row] });
