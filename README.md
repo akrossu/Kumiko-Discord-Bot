@@ -1,11 +1,11 @@
 <div align="center">
 <img src="https://i.imgur.com/CNqwXru.png" />
 
-[![Version][version-shield]](repo-url)
-[![Code-Size][code-size-shield]](repo-url)
-[![Issues][issues-sheild]](repo-url)
-[![License][license-shield]](repo-url)
-![Discord-js-version][discord-js]
+[![Version][version-shield]][repo-url]
+[![Code-Size][code-size-shield]][repo-url]
+[![Issues][issues-sheild]][repo-url]
+[![License][license-shield]][repo-url]
+[![Discord-js-version][discord-js]][repo-url]
 <br></br>
 </div>
 
@@ -19,7 +19,7 @@
     <img src="https://i.imgur.com/2odML5a.png">
 </div>
 
-<div align="center"><h2>Files</h2></div>
+<h2 align="center">Files</h2>
 
 > config.json is not listed in the repository so here is the code in the file
 
@@ -33,14 +33,14 @@
 }
 ```
 
-<div align="center"><h2>Disclaimer</h2></div>
+<h2 align="center">Disclaimer</h2>
 
 - Since this current build is not ready, I am only deploying to my private server and the github repo is purely for tracking purposes through development until officially releasing to the public with hosting.
 
 - I by no means know what I am doing, so if there are optimizations or any tips to provide, please say so!
 
-[version-shield]: https://img.shields.io/github/v/release/akr0ss/kumiko-discord-bot?include_prereleases
 [repo-url]: https://github.com/akr0ss/kumiko-discord-bot
+[version-shield]: https://img.shields.io/github/v/release/akr0ss/kumiko-discord-bot?include_prereleases
 [code-size-shield]: https://img.shields.io/github/languages/code-size/akr0ss/kumiko-discord-bot
 [issues-sheild]: https://img.shields.io/github/issues/akr0ss/kumiko-discord-bot
 [license-shield]: https://img.shields.io/github/license/akr0ss/kumiko-discord-bot
