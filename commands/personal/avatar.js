@@ -1,3 +1,4 @@
+const { EmbedBuilder } = require('@discordjs/builders');
 const { SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
@@ -10,20 +11,19 @@ module.exports = {
         ),
     async execute(interaction) {
         const user = interaction.options.getUser('target');
-	if (user) {
-            dynamicEmbed.title = user.username + '\'s avatar';
-            dynamicEmbed.image = { url: user.displayAvatarURL({ dynamic: true, size: 2048 }) };
-            return interaction.reply({ embeds: [dynamicEmbed] });
+
+        const embed = new EmbedBuilder()
+            .setColor(0xD68881);
+
+        if (user === null) {
+            embed.setTitle('Your avatar');
+            embed.setImage(interaction.user.displayAvatarURL({ size: 2048 }));
+        }
+        else {
+            embed.setTitle(user.username + '\'s avatar');
+            embed.setImage(user.displayAvatarURL({ dynamic: true, size: 2048 }));
         }
 
-        dynamicEmbed.title = 'Your avatar';
-        dynamicEmbed.image = { url: interaction.user.displayAvatarURL({ size: 2048 }) };
-        await interaction.reply({ embeds: [dynamicEmbed] });
+        return interaction.reply({ embeds: [embed] });
 	},
-};
-
-const dynamicEmbed = {
-    color: 0xF5B5C8,
-    title: 'placeholder',
-    image: { url: 'https://i.imgur.com/AfFp7pu.png' },
 };
