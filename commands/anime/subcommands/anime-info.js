@@ -23,7 +23,7 @@ module.exports = {
         }
 
         const embed = new EmbedBuilder()
-            .setColor(0xF5B5C8)
+            .setColor(0xD68881)
             .setTitle(data.title)
             .setURL(data.url)
             .setThumbnail(data.picture)
