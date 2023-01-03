@@ -73,7 +73,7 @@ module.exports = {
             }
 
             embed.addFields({ name: `${animeData.title}`, value: `${synopsis}`, inline: true });
-            embed.addFields({ name: `${animeData.score} ★`, value: `[MyAnimeList Page](${animeData.url})\n${animeData.episodes} episodes\n${animeData.aired}`, inline: true });
+            embed.addFields({ name: `User Rating: ${animeData.score} ★`, value: `[MyAnimeList Page](${animeData.url})\n${animeData.episodes} episodes\n${animeData.aired}`, inline: true });
             embed.addFields({ name: '\u200B', value: '\u200B', inline: true });
         }
 
