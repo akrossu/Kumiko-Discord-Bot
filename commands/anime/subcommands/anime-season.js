@@ -57,7 +57,7 @@ module.exports = {
         const embed = new EmbedBuilder()
             .setColor(0xF5B5C8)
             .setTitle(`${type} from ${season}, ${year}`)
-            .setDescription('For further information about an anime, use `/anime search`')
+            .setDescription('For further information about an anime, use `/anime info`')
             .setURL(`https://myanimelist.net/anime/season/${year}/${season}`);
 
         for (let i = 0; i < typeLength && i < displayPerPage; i++) {
