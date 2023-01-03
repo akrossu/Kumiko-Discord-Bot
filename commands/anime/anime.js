@@ -1,4 +1,5 @@
 const { animeInfo } = require('./subcommands/anime-info');
+const { animeSearch } = require('./subcommands/anime-search');
 const { animeSeason } = require('./subcommands/anime-season');
 const { animeProfile } = require('./subcommands/anime-profile');
 
@@ -8,6 +9,14 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('anime')
         .setDescription('anime')
+        // COMMAND: /anime search
+        .addSubcommand(subcommand =>
+            subcommand.setName('search')
+                .setDescription('Search the MAL database for a related anime')
+                .addStringOption(option =>
+                    option.setName('anime')
+                        .setDescription('Anime Title')
+                        .setRequired(true)))
         // COMMAND: /anime info
         .addSubcommand(subcommand =>
             subcommand.setName('info')
@@ -56,11 +65,14 @@ module.exports = {
                         .setRequired(true))),
     async execute(interaction) {
         switch (interaction.options.getSubcommand()) {
-            case 'season':
-                animeSeason(interaction);
+            case 'search':
+                animeSearch(interaction);
                 break;
             case 'info':
                 animeInfo(interaction);
+                break;
+            case 'season':
+                animeSeason(interaction);
                 break;
             case 'profile':
                 animeProfile(interaction);

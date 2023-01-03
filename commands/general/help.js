@@ -51,21 +51,25 @@ module.exports = {
                     embed.setDescription('Some generic bot commands.');
                     embed.setFields(
                         { name: '/help', value: 'Lists all categories and their commands.', inline: true },
-                        { name: '/server', value: 'Displays guild information.', inline: true });
+                        { name: '/server', value: 'Guild information.', inline: true });
                         break;
                 case 'personal':
                     embed.setTitle(':person_pouting: Personal');
                     embed.setDescription('Your discord and bot information.');
                     embed.setFields(
-                        { name: '/avatar', value: 'Displays your or a selected user\'s avatar.', inline: true },
-                        { name: '/user', value: 'Displays information about your discord acount!', inline: true });
+                        { name: '/avatar', value: 'Your or a selected user\'s avatar.', inline: true },
+                        { name: '/user', value: 'Information about your discord acount!', inline: true });
                     break;
                 case 'anime':
                     embed.setTitle(':shinto_shrine: Anime');
                     embed.setDescription('Lookup anime and discuss them with your friends!');
                     embed.setFields(
-                        { name: '/anime search', value: 'Enter an anime name to search for it.' },
-                        { name: '/anime season', value: 'Displays all anime within a certain season and year of a selected type.' });
+                        { name: '/anime info', value: 'Information for the best-match anime.', inline: true },
+                        { name: '/anime search', value: 'A list of related anime for a user to select from.', inline: true },
+                        { name: '\u200B', value: '\u200B', inline: true },
+                        { name: '/anime profile', value: 'Your MAL profile.', inline: true },
+                        { name: '/anime season', value: 'All anime within a certain season and year of a selected type.', inline: true },
+                        { name: '\u200B', value: '\u200B', inline: true });
                     break;
                 case 'utility':
                     embed.setTitle(':wrench: Utility');
