@@ -27,7 +27,7 @@
 {
     "token": "[your-token-here]",
     "author": "Akross",
-    "version": "0.5",
+    "version": "0.5.1",
     "clientId": "[your-client-id]",
     "guildId": "[your-guild-id]"
 }
