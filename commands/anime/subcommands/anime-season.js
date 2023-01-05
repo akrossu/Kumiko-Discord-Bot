@@ -55,7 +55,7 @@ module.exports = {
         if (typeLength == 0) return interaction.reply({ content: `Can not find anime for ${season}, ${year}` });
 
         const embed = new EmbedBuilder()
-            .setColor(0xF5B5C8)
+            .setColor(0xD68881)
             .setTitle(`${type} from ${season}, ${year}`)
             .setDescription('For further information about an anime, use `/anime info`')
             .setURL(`https://myanimelist.net/anime/season/${year}/${season}`);

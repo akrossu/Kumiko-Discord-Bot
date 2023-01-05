@@ -9,7 +9,7 @@ module.exports = {
         const upTime = new Date(interaction.client.uptime);
         const upTimeCalc = Math.round((new Date().getTime() - upTime.getTime()) / 1000);
         const helpEmbed = new EmbedBuilder()
-            .setColor(0xE38271)
+            .setColor(0xD68881)
             .setTitle('Kumiko Discord Bot v' + version)
             .setThumbnail(interaction.client.user.displayAvatarURL())
             .addFields(

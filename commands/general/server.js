@@ -9,7 +9,7 @@ module.exports = {
 			const createdAt = new Date(interaction.guild.createdAt);
 			const joinedAt = new Date(interaction.member.joinedAt);
 			const serverInfoEmbed = new EmbedBuilder()
-				.setColor(0xE38271)
+				.setColor(0xD68881)
 				.setTitle(interaction.guild.name)
 				.setThumbnail(interaction.guild.iconURL())
 				.addFields(

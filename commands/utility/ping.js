@@ -11,7 +11,7 @@ module.exports = {
 				embeds: [
 					{
 					title: '🏓  Pong!',
-					color: 0xE38271,
+					color: 0xD68881,
 					fields: [
 						{ name: 'WebSocket Ping', value: `${interaction.client.ws.ping}ms`, inline: true },
 						{ name: '\u200B', value: '\u200B', inline: true },
