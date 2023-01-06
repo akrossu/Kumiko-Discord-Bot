@@ -1,4 +1,4 @@
-const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, isJSONEncodable } = require('@discordjs/builders');
+const { EmbedBuilder, ActionRowBuilder, ButtonBuilder } = require('@discordjs/builders');
 const { ButtonStyle, ComponentType } = require('discord.js');
 const malScraper = require('mal-scraper');
 const search = malScraper.search;
