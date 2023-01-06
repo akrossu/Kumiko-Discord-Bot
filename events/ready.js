@@ -7,7 +7,7 @@ module.exports = {
 	execute(client) {
 		console.log('\n',
         '/****************************************/\n',
-        `/        ${client.user.username} v${version} is now Online       /\n`,
+        `/       ${client.user.username} v${version} is now Online      /\n`,
         `/            Created by ${author}           /\n`,
         '/****************************************/\n');
 	},
