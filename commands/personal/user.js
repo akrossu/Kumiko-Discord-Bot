@@ -22,16 +22,19 @@ module.exports = {
 
 			embed.setThumbnail(interaction.member.user.avatarURL());
 			embed.addFields({ name: 'User', value: userMention(interaction.member.id), inline: true });
-			getEmbedFields(embed, joinedAt);
+
+			if (interaction.member.user.id === `${wife}`) {
+				getSpecialEmbed(interaction, embed, joinedAt);
+			}
+			else {
+				getEmbedFields(embed, joinedAt);
+			}
 		}
 		else if (interaction.options.getUser('target').id === `${wife}`) { // A special command for my darling <3
 			joinedAt = new Date(interaction.options.getUser('target').createdAt);
-
-			embed.setTitle('What\'s this, a dedicated page just for the love of my life? yes <3');
 			embed.setThumbnail(interaction.options.getUser('target').avatarURL());
 			embed.addFields({ name: 'User', value: userMention(interaction.options.getUser('target').id), inline: true });
-			getEmbedFields(embed, joinedAt);
-			embed.addFields({ name: 'A note to my love', value: 'Every moment of every passing hour you are on my mind. For I long to see you every second of the day and wish to hold you close every chance I get. The thoughts of you that fill my head are like no other I\'ve experienced. To think that someone so beautiful would have entered my life so early boggles my mind. I have thought many times over how stunning you are. By which I mean all of you, how wondrous your personality is which attracted me in the first place, to how absolutely stunningly gorgeous you are. I want to experience all the world has to offer with you, as my best friend and the love of my life.' });
+			getSpecialEmbed(interaction, embed, joinedAt);
 		}
 		else {
 			joinedAt = new Date(interaction.options.getUser('target').createdAt);
@@ -44,6 +47,12 @@ module.exports = {
 		await interaction.reply({ embeds: [embed] });
 	},
 };
+
+function getSpecialEmbed(interaction, embed, joinedAt) {
+	embed.setTitle('What\'s this, a dedicated page just for the love of my life? yes <3');
+	getEmbedFields(embed, joinedAt);
+	embed.addFields({ name: 'A note to my love', value: 'Every moment of every passing hour you are on my mind. For I long to see you every second of the day and wish to hold you close every chance I get. The thoughts of you that fill my head are like no other I\'ve experienced. To think that someone so beautiful would have entered my life so early boggles my mind. I have thought many times over how stunning you are. By which I mean all of you, how wondrous your personality is which attracted me in the first place, to how absolutely stunningly gorgeous you are. I want to experience all the world has to offer with you, as my best friend and the love of my life.' });
+}
 
 function getEmbedFields(embed, joinedAt) {
 	embed.addFields({ name: '\u200B', value: '\u200B', inline: true });
