@@ -1,4 +1,5 @@
-const { EmbedBuilder, SlashCommandBuilder, hyperlink } = require('discord.js');
+const { EmbedBuilder, ActionRowBuilder, ButtonBuilder } = require('@discordjs/builders');
+const { SlashCommandBuilder, hyperlink, ButtonStyle } = require('discord.js');
 const { version, author } = require('../../config.json');
 
 module.exports = {
@@ -17,6 +18,13 @@ module.exports = {
                 { name: 'Date Created', value: '<t:1670463360:d>', inline: true },
                 { name: 'Up Time ', value: '<t:' + upTimeCalc + ':R>', inline: true },
                 { name: 'A little about the bot', value: 'Kumiko is a complete rewrite of an discord bot I had used for various things. The aim of it\'s current version is to provide a dynamic and easy to use experience. I am excited to see where this journy takes not only the bot, but myself as well! Thank you for reading!' });
-        await interaction.reply({ embeds: [helpEmbed] });
+
+        const repoBtn = new ActionRowBuilder().addComponents(
+            new ButtonBuilder()
+                .setLabel('Visit the GitHub Repo')
+                .setStyle(ButtonStyle.Link)
+                .setURL('https://github.com/AKR0SS/Kumiko-Discord-Bot'));
+
+        await interaction.reply({ embeds: [helpEmbed], components: [repoBtn] });
     },
 };
