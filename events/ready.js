@@ -1,9 +1,10 @@
-const { Events } = require('discord.js');
+const { Events, ActivityType } = require('discord.js');
 
 module.exports = {
 	name: Events.ClientReady,
 	once: true,
-	execute() {
+	execute(client) {
+		client.user.setActivity('anime | /help', { type: ActivityType.Watching });
 		console.log('\n',
         '     ___           ___           ___                       ___           ___    \n',
 		'    /__/|         /__/\\         /__/\\        ___          /__/|         /  /\\    \n',
