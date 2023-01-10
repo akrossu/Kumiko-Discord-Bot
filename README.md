@@ -35,7 +35,7 @@
 
 <h2 align="center">Disclaimer</h2>
 
-- Since this current build is not ready, I am only deploying to my private server and the github repo is purely for tracking purposes through development until officially releasing to the public with hosting.
+- I am slowly trying to roll out a stable build of the bot and am currently locally hosting the bot so if there is any downtime, I apologize as I may be working on the bot.
 
 - I by no means know what I am doing, so if there are optimizations or any tips to provide, please say so!
 
