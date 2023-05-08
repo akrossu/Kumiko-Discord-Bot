@@ -1,5 +1,16 @@
+require('dotenv').config();
 const { EmbedBuilder } = require('@discordjs/builders');
-const malScraper = require('mal-scraper');
+const Taki = require('taki');
+
+async function getSearchData(interaction) {
+    const taki = new Taki(process.env.CLIENT_KEY);
+    return await taki.searchAnime(interaction.options.getString('anime'));
+}
+
+async function getData(id) {
+    const taki = new Taki(process.env.CLIENT_KEY);
+    return await taki.getAnimeInfo(id);
+}
 
 module.exports = {
     async animeInfo(interaction) {
@@ -7,7 +18,10 @@ module.exports = {
         let synopsis;
 
         try {
-            data = await malScraper.getInfoFromName(interaction.options.getString('anime'), true);
+            const searchData = await getSearchData(interaction);
+            data = await getData(searchData.data[0].node.id);
+
+            // TODO: if invalid messaage is returned throw error to be caught
         }
         catch (error) {
             console.log(`%s %s An error occured while awaiting a reply.\n${error}`, '\x1b[41m ERROR \x1b[0m', '\x1b[34m [anime-info.js] \x1b[0m');
@@ -18,7 +32,7 @@ module.exports = {
             synopsis = data.synopsis.substring(0, 1024 - 29);
         }
         else {
-            synopsis = data.synopsis.substring(0, data.synopsis.length - 29);
+            synopsis = data.synopsis.substring(0, data.synopsis.length - 29) + ' . . .';
         }
 
         const embed = new EmbedBuilder()
@@ -26,11 +40,11 @@ module.exports = {
             .setTitle(data.title)
             .setURL(data.url)
             .setThumbnail(data.picture)
-            .setDescription(data.score + ` score (${data.scoreStats}) • ${data.type}`)
+            .setDescription((data.mean).toFixed(2) + ` score (Scored by ${data.num_scoring_users} users) • ${(data.media_type).toUpperCase()}`)
             .addFields(
-                { name: 'Aired', value: `${data.premiered}`, inline: true },
-                { name: 'Status', value: `${data.status}`, inline: true },
-                { name: 'Episodes', value: `${data.episodes} episodes`, inline: true },
+                { name: 'Aired', value: `${data.start_season.season + ' ' + data.start_season.year}`, inline: true },
+                { name: 'Status', value: `${data.status.replaceAll('_', ' ')}`, inline: true },
+                { name: 'Episodes', value: `${data.num_episodes} episodes`, inline: true },
                 { name: 'Synopsis', value: synopsis },
             );
 
