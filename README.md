@@ -27,7 +27,7 @@
 {
     "token": "[your-token-here]",
     "author": "Akross",
-    "version": "0.5.1",
+    "version": "0.6",
     "clientId": "[your-client-id]",
     "guildId": "[your-guild-id]"
 }
@@ -44,4 +44,4 @@
 [code-size-shield]: https://img.shields.io/github/languages/code-size/akr0ss/kumiko-discord-bot
 [issues-sheild]: https://img.shields.io/github/issues/akr0ss/kumiko-discord-bot
 [license-shield]: https://img.shields.io/github/license/akr0ss/kumiko-discord-bot
-[discord-js]: https://img.shields.io/badge/Discord.js-v14.7.1-%232C7D59
+[discord-js]: https://img.shields.io/badge/Discord.js-v14.11.0-%232C7D59
