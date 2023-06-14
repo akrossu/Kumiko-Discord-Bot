@@ -30,18 +30,6 @@ module.exports = {
             subcommand.setName('season')
                 .setDescription('List all of the airing anime in a particular season / year')
                 .addStringOption(option =>
-                    option.setName('type')
-                        .setDescription('Type of media')
-                        .addChoices(
-                            { name: 'TVNew', value: 'TVNew' },
-                            { name: 'TVCon', value: 'TVCon' },
-                            { name: 'Movies', value: 'Movies' },
-                            { name: 'OVAs', value: 'OVAs' },
-                            { name: 'ONAs', value: 'ONAs' },
-                            { name: 'Specials', value: 'Specials' },
-                        )
-                        .setRequired(true))
-                .addStringOption(option =>
                     option.setName('season')
                         .setDescription('Season of the year.')
                         .addChoices(
