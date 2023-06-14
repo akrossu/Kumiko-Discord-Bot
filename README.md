@@ -16,7 +16,7 @@
 <div align="center"><h2>Features</h2>
     Here are just some of the features to come as I work further on the bot.
     <br></br>
-    <img src="https://i.imgur.com/2odML5a.png">
+    <img src="https://i.imgur.com/gSi0k1q.png">
 </div>
 
 <h2 align="center">Files</h2>
