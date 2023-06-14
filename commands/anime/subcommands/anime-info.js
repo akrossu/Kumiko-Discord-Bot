@@ -2,6 +2,12 @@ require('dotenv').config();
 const { EmbedBuilder } = require('@discordjs/builders');
 const Taki = require('taki');
 
+/**
+ * ERRORS
+ * request "86" returns undefined
+ *  - request "\86" returnss successful
+ */
+
 async function getSearchData(interaction) {
     const taki = new Taki(process.env.CLIENT_KEY);
     return await taki.searchAnime(interaction.options.getString('anime'));
@@ -38,7 +44,7 @@ module.exports = {
         const embed = new EmbedBuilder()
             .setColor(0xD68881)
             .setTitle(data.title)
-            .setURL(data.url)
+            .setURL(getUrl(data.id))
             .setThumbnail(data.picture)
             .setDescription((data.mean).toFixed(2) + ` score (Scored by ${data.num_scoring_users} users) • ${(data.media_type).toUpperCase()}`)
             .addFields(
@@ -51,3 +57,8 @@ module.exports = {
         await interaction.reply({ embeds: [embed] });
     },
 };
+
+function getUrl(id) {
+    const URL = 'https://myanimelist.net/anime/';
+    return URL.concat(id);
+}
