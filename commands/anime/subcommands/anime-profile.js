@@ -1,40 +1,33 @@
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder } = require('@discordjs/builders');
 const { ButtonStyle, ComponentType } = require('discord.js');
-const malScraper = require('mal-scraper');
+const Taki = require('taki');
+
+const TOTAL_RESULTS = 8;
+let PAGE = 1;
+
+async function getWatchList(username) {
+    const taki = new Taki(process.env.CLIENT_KEY);
+    const dataObj = await taki.getWatchList(username, TOTAL_RESULTS);
+    return dataObj;
+}
 
 module.exports = {
     async animeProfile(interaction) {
         const message = await interaction.deferReply();
 
         const username = interaction.options.getString('username');
-        let paginate = 0; // index of data entry point
-        const type = 'anime';
+        let dataObj = await getWatchList(username);
 
-        let data;
-        let currentPage = 1;
-        let totalPages = 1;
+        // Total Page
+        // Current Page
 
-        /* DATA LOGIC */
-        try {
-            // gets an array of 300 values
-            data = await malScraper.getWatchListFromUser(username, paginate, type);
-        }
-        catch (error) {
-            console.log(`%s %s An error occured while awaiting a reply.\n${error}`, '\x1b[41m ERROR \x1b[0m', '\x1b[34m [anime-search.js] \x1b[0m');
-            return interaction.editReply({ content: 'An error occured while processing your request.' });
-        }
-
-        totalPages = Math.floor(data.length / 8);
-
+        // Embed Builder
         const embed = new EmbedBuilder()
             .setColor(0xD68881)
             .setTitle(`${username}'s profile`)
-            .setDescription('Displays all user\'s anime alphabetically from `watching > completed > on-hold > dropped > plan-to-watch`')
+            .setDescription('Displays all user\'s anime alphabetically and in the order: \n`watching > completed > on-hold > dropped > plan-to-watch`')
             .setURL(`https://myanimelist.net/profile/${username}`)
-            .setFooter({ text: `page ${currentPage} of ${totalPages}` });
-
-        // populates initial page
-        updatePage(embed, data, paginate);
+            .setFooter({ text: `page ${PAGE} of ${0}` });
 
         const previousBtn = new ButtonBuilder()
             .setCustomId('prev')
@@ -47,62 +40,65 @@ module.exports = {
             .setLabel('>')
             .setStyle(ButtonStyle.Secondary);
 
-        /* BUTTON LOGIC */
+        // Populate initial page load
+        await updatePage(embed, dataObj);
+
+        // Updater
         const collector = message.createMessageComponentCollector({ componentType: ComponentType.Button, time: 1800000 });
         collector.on('collect', async i => {
-            if (i.customId === 'prev' && currentPage > 1) {
-                currentPage--;
-                paginate -= 8;
+            // TODO: dataObj.paging.next && dataObj.paging.previous when !null
+            const taki = new Taki(process.env.CLIENT_KEY);
+            let pagingURI;
+
+            if (i.customId === 'prev' && dataObj.paging.previous != null) {
+                PAGE--;
                 nextBtn.setDisabled(false);
+                pagingURI = dataObj.paging.previous;
             }
-            else if (i.customId === 'next' && currentPage < totalPages) {
-                currentPage++;
-                paginate += 8;
+            else if (i.customId === 'next' && dataObj.paging.next != null) {
+                PAGE++;
                 previousBtn.setDisabled(false);
+                console.log('previous false');
+                pagingURI = dataObj.paging.next;
             }
 
-            if (currentPage === 1) { previousBtn.setDisabled(true); }
-            if (currentPage === totalPages) { nextBtn.setDisabled(true); }
+            // repeat null check for button disable
+            if (dataObj.paging.previous == null) previousBtn.setDisabled(true);
+            else if (dataObj.paging.next == null) nextBtn.setDisabled(true);
 
-            updatePage(embed, data, paginate);
-            embed.setFooter({ text: `page ${currentPage} of ${totalPages}` });
+            dataObj = await taki.paginate(pagingURI);
+            await updatePage(embed, dataObj);
 
             await i.update({ embeds: [embed], components: [row] });
         });
 
+        // Reply
         const row = new ActionRowBuilder().addComponents(previousBtn, nextBtn);
-
         await interaction.editReply({ embeds: [embed], components: [row] });
     },
 };
 
-function getURL(nData) {
-    const id = nData.animeId;
-    const name = nData.animeTitle.replaceAll(' ', '_');
-    return `https://myanimelist.net/anime/${id}/${name}`;
+function getURL(id) {
+    return `https://myanimelist.net/anime/${id}`;
 }
 
-function getStatus(nData) {
-    switch (nData.status) {
-        case 1:
-            return 'Watching';
-        case 2:
-            return 'Completed';
-        case 3:
-            return 'On-hold';
-        case 4:
-            return 'Dropped';
-        case 6: // idk where status 5 is /shrug
-            return 'Plan-to-watch';
+let dataArr = [];
+async function getListData(dataObj) {
+    dataArr = [];
+    for (let i = 0; i < TOTAL_RESULTS; i++) {
+        const taki = new Taki(process.env.CLIENT_KEY);
+        dataArr.push(await taki.getAnimeInfo(dataObj.data[i].node.id));
     }
 }
 
-function updatePage(embed, data, paginate) {
-    // Empties all embed fields for new ones to be added
+async function updatePage(embed, dataObj) {
     embed.setFields();
-    for (let i = paginate; i < paginate + 8; i++) {
-        embed.addFields({ name: `${data[i].animeTitle}`, value: `[MyAnimeList Page](${getURL(data[i])})\nAired: ${data[i].animeStartDateString}\n${data[i].animeNumEpisodes} episode(s)`, inline: true });
-        embed.addFields({ name: '\u200B\u200B', value: '\u200B\u200B', inline: true });
-        embed.addFields({ name: `User Rating: ${data[i].score} ★`, value: `Status: ${getStatus(data[i])}`, inline: true });
+    await getListData(dataObj);
+
+    for (let i = 0; i < TOTAL_RESULTS; i++) {
+        embed.addFields({ name: `${dataObj.data[i].node.title}`, value: `[MyAnimeList Page](${getURL(dataArr[i].id)})\nAired: ${dataArr[i].start_date}\nEpisode(s): ${dataArr[i].num_episodes}`, inline: true });
+        embed.addFields({ name: '\u200B', value: '\u200B', inline: true });
+        embed.addFields({ name: `User Rating: ${dataArr[i].mean} ★`, value: `Status: ${dataArr[i].status.replaceAll('_', ' ') }`, inline: true });
     }
+    embed.setFooter({ text: `page ${PAGE} of ${0}` });
 }
